@@ -1,6 +1,7 @@
 % serp1_det0;
-sealer_mod4_det0;
+%sealer_mod4_det0;
 %serp1_det0_number2;
+smallcrit_det0;
 
 I = DETFApower(:,9:10);
 
@@ -51,7 +52,7 @@ for i = 1:size(DETFApowerCOORD,1)
   z = DETFApower(i,11)*ones(size(xp))/mean(M);
   
   % if (z > 0.2) | ((x == 0.0) & (y == 0.0))
-  if (z > 0.2) | ((abs(x) < 70.0) & (abs(y) < 70.0))
+  %if (z > 0.2) | ((abs(x) < 70.0) & (abs(y) < 70.0))
   xp = xp';
   yp = yp';
   z  = z';
@@ -67,12 +68,12 @@ for i = 1:size(DETFApowerCOORD,1)
   zi = F(xi,yi) ;
   trisurf(tri,xi,yi,zi, 'EdgeColor', 'none') 
   hold on
-  end
+  %end
 end
 set(gca,'Color','k')
 view(2)
 shading interp
-colormap parula
+colormap jet
 colorbar
 grid off
 
@@ -84,7 +85,7 @@ for i = 1:size(DETFApowerCOORD,1)
   
   if (z > 0.2) | ((abs(x) < 70.0) & (abs(y) < 70.0))
   
-  text(x,y,2.0, num2str(z,3), 'Color', 'k', 'HorizontalAlignment', ...
+  text(x,y,2.0, num2str(z,3), 'Color', 'w', 'HorizontalAlignment', ...
        'center', 'FontWeight', 'bold')
   end
 end

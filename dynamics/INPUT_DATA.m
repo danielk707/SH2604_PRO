@@ -44,8 +44,8 @@ potenza_inner_fissile0 = potenzatot0 * power_frac_inner_fissile;           %[W] 
 potenza_outer_fissile0 = potenzatot0 * power_frac_outer_fissile;           %[W] Potenza nominale del fissile outer
 potenza_fertile0       = potenzatot0 * power_frac_fertile;                 %[W] Potenza nominale del fertile
 
-T_in0  = 410;                                                              %[C] Temperatura TV in ingresso al core nominale
-T_out0 = 450;                                                              %[C] Temperatura TV in uscita dal core nominale
+T_in0  = 380;                                                              %[C] Temperatura TV in ingresso al core nominale
+T_out0 = 420;                                                              %[C] Temperatura TV in uscita dal core nominale
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -275,7 +275,7 @@ tau_fuel = (U_tot/M_fuel/cp_fuel)^-1;
     alfa_ax      = -0.3e-5;                                                %[1/K]              
     alfa_CRs     =  1e-5;
     alfa_coolant = -0.3e-5;                                                %[1/K]
-    K_Doppler    = -374e-5;
+    K_Doppler    = -226e-5;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
