@@ -1,0 +1,399 @@
+set acelib "/codes/SERPENT/xsdata/endfb7.xsdata"
+set declib "/codes/SERPENT/xsdata/sss_endfb7.dec"
+set nfylib "/codes/SERPENT/xsdata/sss_endfb7.nfy"
+
+set pop 10000 100 20
+
+set power 15e06
+
+%set mvol
+%fuel 0 3.7e5
+
+plot 2 4096 4096
+plot 3 4096 4096
+mesh 3 4096 4096
+
+
+%-ENERGY GRID
+
+%ene grid 3 500 1e-11 2e1 
+%ene gridlimit 2 500 e-1 2e1
+
+%-DETECTORS
+
+%det fluxlimit de gridlimit dm box 
+%det flux de grid dm box
+%det fluxtot
+det FApower dr -8 void dh 3 0 0 16.479 15 15 0 120 1
+det axialsquare dr -8 void dx -16.8069 -14.9069 1 dy 8.205 10.105 1 dz 0 120 24
+
+% --- MATERIALS
+
+% 24IELD
+mat shield sum
+5010.03c 0.96
+5011.03c 0.04
+6000.03c 0.25
+
+
+% COOLANT
+mat cool -10.0
+82000.06c 1
+
+%-U02 enriched 20%
+
+%mat fuel -10.5
+%92235.09c 0.066
+%92238.09c 0.267
+%8016.09c  0.63
+
+%mat fuel -14.3
+%92235.09c 0.006
+%92238.09c 0.394
+%94239.09c 0.0461
+%94240.09c 0.0336
+%94241.09c 0.0154
+%94242.09c 0.0109
+%7014.09c  0.5
+
+mat fuel -14.5 %22rn 1
+92235.15c 0.00725
+92238.15c 0.33805  %33.88
+94239.15c 0.03255
+94240.15c 0.0183
+94241.15c 0.013
+94242.15c 0.00085 %6.12 
+95241.15c 0.03
+95243.15c 0.03
+93237.15c 0.03
+7015.15c  0.5
+
+mat fuel2 -14.5 %22rn 1
+92235.15c 0.00725
+92238.15c 0.34655  %35.88
+94239.15c 0.05455
+94240.15c 0.0133
+94241.15c 0.013
+94242.15c 0.00035 %9.62 
+95241.15c 0.02
+95243.15c 0.02
+93237.15c 0.025
+7015.15c  0.5
+
+%mat fuel3 -14.5 %22rn 1
+%92235.15c 0.00725
+%92238.15c 0.33155  %35.88
+%94239.15c 0.05455
+%94240.15c 0.0133
+%94241.15c 0.013
+%94242.15c 0.00035 %8.12 
+%95241.15c 0.02
+%95243.15c 0.02
+%93237.15c 0.02
+%7014.15c  0.5
+
+%-Cladding is 12R72
+
+mat clad -8.02
+24000.03c 0.46875
+28000.03c 0.46875
+22000.03c 0.03125
+42000.03c 0.03125
+
+%-Box Material SS316L
+mat box sum
+26000.03c -0.6547
+6000.03c  -0.0003
+24000.03c -0.17
+28000.03c -0.12
+22000.03c -0.025
+25055.03c -0.02
+14000.03c -0.01
+
+%-23flector YH2
+
+mat ref sum
+39089.03c 0.34
+1001.03c 0.66
+
+%-Control Assembly Boron
+
+mat boron sum
+5010.03c 0.196
+5011.03c 0.804
+6000.03c 0.2
+
+% --- PINS
+
+%-Fuel Pin
+pin 1
+fuel 0.85
+void 0.885
+clad 0.95
+cool
+
+%fuel2
+pin 6
+fuel2 0.85
+void 0.885
+clad 0.95
+cool
+
+%fuel3
+%pin 7
+%fuel3 0.85
+%void 0.885
+%clad 0.95
+%cool
+
+%-22 Pin
+pin 2
+boron 1.743
+void 1.789
+clad 1.988
+cool
+
+%-23FLECTOR Pin
+pin 3
+ref 0.995
+void 1.080
+clad 1.210
+cool
+
+%-24IELDING Pin
+pin 4
+shield 1.390
+void 1.508
+clad 1.675
+cool
+
+%-24UTDOWN Pin
+pin 5
+cool
+
+%-COOLANT Pin
+pin 8
+cool
+
+%-GRID Pin
+pin 99
+box
+
+
+% --- LATTICES
+
+
+% --- SUR21CES
+
+surf Z0 pz 0.000
+surf Z1 pz 120.0
+surf Z2 pz 80.000
+
+surf HEX0 hexyc 0.0 0.0 8.0388
+surf HEX1 hexyc 0.0 0.0 8.2395
+
+surf CYL  cyl   0.0 0.0 103.0
+surf CYL2 cyl   0.0 0.0 155.0
+surf CYL3 cyl   0.0 0.0 162.0
+
+% --- CELLS
+
+%-(universe 21)
+
+%-fuel assembly lattice, type 2, pitch 1.637 cm, filled with 91 fuel pins 1
+
+lat 11  2   0.0  0.0   13  13   2.5191
+8 8 8 8 8 8 8 8 8 8 8 8 8
+ 8 8 8 8 8 8 8 8 8 8 8 8 8
+  8 8 8 8 8 8 8 8 8 8 8 8 8
+   8 8 8 8 8 8 1 1 1 1 8 8 8
+    8 8 8 8 8 1 1 1 1 1 8 8 8
+     8 8 8 8 1 1 1 1 1 1 8 8 8
+      8 8 8 1 1 1 1 1 1 1 8 8 8
+       8 8 8 1 1 1 1 1 1 8 8 8 8
+        8 8 8 1 1 1 1 1 8 8 8 8 8
+         8 8 8 1 1 1 1 8 8 8 8 8 8
+          8 8 8 8 8 8 8 8 8 8 8 8 8
+           8 8 8 8 8 8 8 8 8 8 8 8 8
+            8 8 8 8 8 8 8 8 8 8 8 8 8
+
+cell 10 21 fill 11 -HEX0         Z0 -Z1
+cell 11 21 box      HEX0 -HEX1   Z0 -Z1
+cell 12 21 outside        HEX1  -Z0  Z1
+%cell 13 21 outside                   Z1
+%cell 14 21 outside              -Z0
+
+%-(universe 94)
+
+lat 95  2   0.0  0.0   13  13   2.5191
+8 8 8 8 8 8 8 8 8 8 8 8 8
+ 8 8 8 8 8 8 8 8 8 8 8 8 8
+  8 8 8 8 8 8 8 8 8 8 8 8 8
+   8 8 8 8 8 8 6 6 6 6 8 8 8
+    8 8 8 8 8 6 6 6 6 6 8 8 8
+     8 8 8 8 6 6 6 6 6 6 8 8 8
+      8 8 8 6 6 6 6 6 6 6 8 8 8
+       8 8 8 6 6 6 6 6 6 8 8 8 8
+        8 8 8 6 6 6 6 6 8 8 8 8 8
+         8 8 8 6 6 6 6 8 8 8 8 8 8
+          8 8 8 8 8 8 8 8 8 8 8 8 8
+           8 8 8 8 8 8 8 8 8 8 8 8 8
+            8 8 8 8 8 8 8 8 8 8 8 8 8
+
+cell 201 94 fill 95 -HEX0         Z0 -Z1
+cell 202 94 box      HEX0 -HEX1   Z0 -Z1
+cell 203 94 outside        HEX1  -Z0  Z1
+%cell 204 94 outside                   Z1
+%cell 205 94 outside              -Z0
+
+%-(universe 22)
+
+%-22-Control assembly lattice, type 2, pitch 3.292 cm, filled with 19 fuel pins 2
+
+lat 12  2   0.0  0.0   13  13   3.3075
+8 8 8 8 8 8 8 8 8 8 8 8 8
+ 8 8 8 8 8 8 8 8 8 8 8 8 8
+  8 8 8 8 8 8 8 8 8 8 8 8 8
+   8 8 8 8 8 8 8 8 8 8 8 8 8
+    8 8 8 8 8 8 2 2 2 8 8 8 8
+     8 8 8 8 8 2 2 2 2 8 8 8 8
+      8 8 8 8 2 2 2 2 2 8 8 8 8
+       8 8 8 8 2 2 2 2 8 8 8 8 8
+        8 8 8 8 2 2 2 8 8 8 8 8 8
+         8 8 8 8 8 8 8 8 8 8 8 8 8
+          8 8 8 8 8 8 8 8 8 8 8 8 8
+           8 8 8 8 8 8 8 8 8 8 8 8 8
+            8 8 8 8 8 8 8 8 8 8 8 8 8
+
+cell 20 22 fill 12 -HEX0         Z0 -Z1
+cell 21 22 box      HEX0 -HEX1   Z0 -Z1
+cell 22 22 outside        HEX1  -Z0  Z1
+%cell 23 22 outside                   Z1
+%cell 24 22 outside                  -Z0
+
+%-(universe 23)
+
+%23FLECTOR assembly lattice, type 2, pitch 2.507 cm, filled with 37 fuel pins 3
+
+lat 13  2   0.0  0.0   13  13   2.5191
+8 8 8 8 8 8 8 8 8 8 8 8 8
+ 8 8 8 8 8 8 8 8 8 8 8 8 8
+  8 8 8 8 8 8 8 8 8 8 8 8 8
+   8 8 8 8 8 8 3 3 3 3 8 8 8
+    8 8 8 8 8 3 3 3 3 3 8 8 8
+     8 8 8 8 3 3 3 3 3 3 8 8 8
+      8 8 8 3 3 3 3 3 3 3 8 8 8
+       8 8 8 3 3 3 3 3 3 8 8 8 8
+        8 8 8 3 3 3 3 3 8 8 8 8 8
+         8 8 8 3 3 3 3 8 8 8 8 8 8
+          8 8 8 8 8 8 8 8 8 8 8 8 8
+           8 8 8 8 8 8 8 8 8 8 8 8 8
+            8 8 8 8 8 8 8 8 8 8 8 8 8
+
+cell 30 23 fill 13 -HEX0         Z0 -Z1
+cell 31 23 box      HEX0 -HEX1   Z0 -Z1
+cell 32 23 outside        HEX1  -Z0  Z1
+%cell 33 23 outside                   Z1
+%cell 34 23 outside                  -Z0
+
+%-(universe 24)
+
+%24IELDING assembly lattice, type 2, pitch 3.475 cm, filled with 19 fuel pins 4
+
+lat 14  2   0.0  0.0   13  13   3.492
+8 8 8 8 8 8 8 8 8 8 8 8 8
+ 8 8 8 8 8 8 8 8 8 8 8 8 8
+  8 8 8 8 8 8 8 8 8 8 8 8 8
+   8 8 8 8 8 8 8 8 8 8 8 8 8
+    8 8 8 8 8 8 4 4 4 8 8 8 8
+     8 8 8 8 8 4 4 4 4 8 8 8 8
+      8 8 8 8 4 4 4 4 4 8 8 8 8
+       8 8 8 8 4 4 4 4 8 8 8 8 8
+        8 8 8 8 4 4 4 8 8 8 8 8 8
+         8 8 8 8 8 8 8 8 8 8 8 8 8
+          8 8 8 8 8 8 8 8 8 8 8 8 8
+           8 8 8 8 8 8 8 8 8 8 8 8 8
+            8 8 8 8 8 8 8 8 8 8 8 8 8
+
+cell 40 24 fill 14 -HEX0         Z0 -Z1
+cell 41 24 box      HEX0 -HEX1   Z0 -Z1
+cell 42 24 outside        HEX1  -Z0  Z1
+%cell 43 24 outside                   Z1
+%cell 44 24 outside                  -Z0
+
+%-(universe 25)
+
+%24UTDOWN RODS assembly lattice, type 2, pitch 4.926 cm, filled with 7 fuel pins 5
+
+lat 15  2   0.0  0.0   13  13   4.95
+8 8 8 8 8 8 8 8 8 8 8 8 8
+ 8 8 8 8 8 8 8 8 8 8 8 8 8
+  8 8 8 8 8 8 8 8 8 8 8 8 8
+   8 8 8 8 8 8 8 8 8 8 8 8 8
+    8 8 8 8 8 8 8 8 8 8 8 8 8
+     8 8 8 8 8 8 5 5 8 8 8 8 8
+      8 8 8 8 8 5 5 5 8 8 8 8 8
+       8 8 8 8 8 5 5 8 8 8 8 8 8
+        8 8 8 8 8 8 8 8 8 8 8 8 8
+         8 8 8 8 8 8 8 8 8 8 8 8 8
+          8 8 8 8 8 8 8 8 8 8 8 8 8
+           8 8 8 8 8 8 8 8 8 8 8 8 8
+            8 8 8 8 8 8 8 8 8 8 8 8 8
+
+cell 50 25 fill 15 -HEX0         Z0 -Z1
+cell 51 25 box      HEX0 -HEX1   Z0 -Z1
+cell 52 25 outside        HEX1  -Z0  Z1
+%cell 53 25 outside                   Z1
+%cell 54 25 outside                  -Z0
+
+ 
+%23ACTOR CO23 LATTICE, type 3, pitch 16.4 cm, filled with the diffe23nt lattices we defined above (99 is the box, 25 is an empty exyc)
+
+%22ACTOR CO22 LATTICE, type 3, pitch 16.4 cm, filled with the diffe22nt lattices we defined above (99 is the box, 21 is an empty exyc)
+
+lat 31  3   0.0  0.0   15  15   16.479
+99 99 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 99 99 99 99 99 99 99 99 24 24 24 24 24 99 99 
+  99 99 99 99 99 99 24 23 23 23 23 23 23 24 99 
+   99 99 99 99 99 24 23 25 22 22 22 25 23 24 99 
+    99 99 99 99 24 23 22 94 94 94 94 22 23 24 99 
+     99 99 99 24 23 22 94 21 21 21 94 22 23 24 99 
+      99 99 24 23 22 94 21 21 21 21 94 22 23 24 99 
+       99 99 23 25 94 21 21 22 21 21 94 25 23 99 99 
+        99 24 23 22 94 21 21 21 21 94 22 23 24 99 99 
+         99 24 23 22 94 21 21 21 94 22 23 24 99 99 99 
+          99 24 23 22 94 94 94 94 22 23 24 99 99 99 99 
+           99 24 23 25 22 22 22 25 23 24 99 99 99 99 99 
+            99 24 23 23 23 23 23 23 24 99 99 99 99 99 99 
+             99 99 24 24 24 24 24 99 99 99 99 99 99 99 99 
+              99 99 99 99 99 99 99 99 99 99 99 99 99 99 99
+
+
+lat 32  3   0.0  0.0   15  15   16.479
+99 99 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 99 99 99 99 99 99 99 99 24 24 24 24 24 99 99 
+  99 99 99 99 99 99 24 23 23 23 23 23 23 24 99 
+   99 99 99 99 99 24 23 25 25 25 25 25 23 24 99 
+    99 99 99 99 24 23 25 94 94 94 94 25 23 24 99 
+     99 99 99 24 23 25 94 21 21 21 94 25 23 24 99 
+      99 99 24 23 25 94 21 21 21 21 94 25 23 24 99 
+       99 99 23 25 94 21 21 25 21 21 94 25 23 99 99 
+        99 24 23 25 94 21 21 21 21 94 25 23 24 99 99 
+         99 24 23 25 94 21 21 21 94 25 23 24 99 99 99 
+          99 24 23 25 94 94 94 94 25 23 24 99 99 99 99 
+           99 24 23 25 25 25 25 25 23 24 99 99 99 99 99 
+            99 24 23 23 23 23 23 23 24 99 99 99 99 99 99 
+             99 99 24 24 24 24 24 99 99 99 99 99 99 99 99 
+              99 99 99 99 99 99 99 99 99 99 99 99 99 99 99  
+
+%-(universe 0)
+
+cell 1000 0 fill 31 -CYL            -Z1  Z2
+cell 1001 0 cool     CYL  -CYL2  Z0 -Z1
+cell 1002 0 box      CYL2 -CYL3  Z0 -Z1 
+cell 1003 0 outside                  Z1
+cell 1004 0 outside             -Z0
+cell 1005 0 outside        CYL3  Z0 -Z1
+cell 1006 0 fill 32 -CYL         Z0     -Z2
+
+
